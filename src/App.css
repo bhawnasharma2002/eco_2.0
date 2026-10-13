@@ -1,0 +1,312 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: #0f172a;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#game-container {
+  /* full background version */
+  width: 100%;
+  height: 100%;
+  /* old calc version kept below for reference:
+     width: calc(100vw - 240px);
+     height: calc(100vh - 150px);
+  */
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+#game-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.game-layout {
+  --toolbox-width: 180px;
+  --groot-height: 110px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+.game-stage {
+  position: absolute;
+  inset: 0 0 var(--groot-height) var(--toolbox-width);
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  /* old inset spacing kept for reference:
+     padding-left: 200px;
+     padding-right: 20px;
+     padding-bottom: 120px;
+  */
+}
+
+.toolbox-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--toolbox-width);
+  background: rgba(15, 23, 42, 0.85);
+  border: 2px solid #2dd4bf;
+  border-radius: 0;
+  color: white;
+  padding: 12px;
+  z-index: 10;
+}
+
+.toolbox-panel h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.toolbox-panel ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.scene-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  display: flex;
+  gap: 10px;
+}
+
+.scene-switcher button {
+  background: rgba(15, 23, 42, 0.8);
+  color: white;
+  border: 2px solid #2dd4bf;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.collider-editor-panel {
+  position: fixed;
+  z-index: 25;
+  top: 76px;
+  right: 12px;
+  bottom: calc(var(--groot-height) + 12px);
+  width: min(340px, calc(100vw - var(--toolbox-width) - 24px));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  padding: 14px;
+  color: #edf6f3;
+  background: rgba(12, 25, 32, 0.94);
+  border: 1px solid rgba(115, 224, 194, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.editor-panel-header h2,
+.editor-properties h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.editor-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.editor-panel-toggle,
+.editor-panel-reopen {
+  border: 1px solid #52706d;
+  border-radius: 5px;
+  padding: 6px 9px;
+  color: #e6f1ee;
+  background: #172b32;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.editor-panel-reopen {
+  position: fixed;
+  z-index: 25;
+  top: 76px;
+  right: 12px;
+  color: #06241c;
+  border-color: #46d7a2;
+  background: #68e0b0;
+}
+
+.editor-panel-header p,
+.editor-instructions,
+.editor-message,
+.editor-properties .muted {
+  margin: 5px 0 0;
+  color: #b7c8c5;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.editor-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.editor-tool,
+.editor-action-row button {
+  min-height: 34px;
+  border: 1px solid #52706d;
+  border-radius: 5px;
+  padding: 6px 8px;
+  color: #e6f1ee;
+  background: #172b32;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.editor-tool.active {
+  color: #06241c;
+  border-color: #46d7a2;
+  background: #68e0b0;
+}
+
+.editor-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.editor-action-row button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.editor-properties {
+  border-top: 1px solid #36504f;
+  border-bottom: 1px solid #36504f;
+  padding: 10px 0;
+}
+
+.editor-properties dl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 5px 10px;
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+.editor-properties dt {
+  color: #abc1bd;
+}
+
+.editor-properties dd {
+  margin: 0;
+  color: #f3f8f6;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.editor-vertices {
+  grid-column: 1 / -1;
+  max-height: 110px;
+  overflow: auto;
+  color: #f3f8f6;
+  font: 11px/1.6 ui-monospace, monospace;
+}
+
+.editor-export-row button {
+  flex: 1 1 calc(50% - 6px);
+}
+
+.editor-message {
+  margin-top: 0;
+  color: #a8f0c6;
+}
+
+.editor-json-output {
+  width: 100%;
+  min-height: 130px;
+  resize: vertical;
+  padding: 8px;
+  color: #d9eee6;
+  background: #081317;
+  border: 1px solid #36504f;
+  border-radius: 5px;
+  font: 11px/1.4 ui-monospace, monospace;
+}
+
+.groot-panel {
+  position: fixed;
+  left: var(--toolbox-width);
+  right: 0;
+  bottom: 0;
+  height: var(--groot-height);
+  background: rgba(15, 23, 42, 0.9);
+  border: 2px solid #2dd4bf;
+  border-radius: 12px 0 0 0;
+  color: white;
+  padding: 16px 24px;
+  z-index: 10;
+}
+
+.groot-header {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #9ae6b4;
+}
+
+.groot-panel p {
+  margin: 0;
+  font-size: 15px;
+}
+
+@media (max-width: 600px) {
+  .game-layout {
+    --toolbox-width: 132px;
+    --groot-height: 110px;
+  }
+
+  .toolbox-panel {
+    width: var(--toolbox-width);
+    padding: 10px;
+  }
+
+  .groot-panel {
+    left: var(--toolbox-width);
+    padding: 12px;
+  }
+
+  .collider-editor-panel {
+    right: 8px;
+    width: min(300px, calc(100vw - var(--toolbox-width) - 16px));
+    padding: 10px;
+  }
+}

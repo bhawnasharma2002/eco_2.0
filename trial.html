@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            margin: 0;
+            background: #1a2a3a; /* Dark background to see the wind clearly */
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Wind Container */
+        .wind-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        /* Base Wind Line Styling */
+        .wind-line {
+            position: absolute;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0));
+            height: 2px;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: blow-left linear infinite;
+        }
+
+        /* Individual Wind Streaks (Randomized sizes, positions, and speeds) */
+        .wind-line:nth-child(1)  { width: 150px; top: 15%; animation-duration: 0.6s; animation-delay: 0.1s; }
+        .wind-line:nth-child(2)  { width: 250px; top: 30%; animation-duration: 0.4s; animation-delay: 0.0s; height: 3px; }
+        .wind-line:nth-child(3)  { width: 180px; top: 45%; animation-duration: 0.5s; animation-delay: 0.3s; }
+        .wind-line:nth-child(4)  { width: 300px; top: 60%; animation-duration: 0.35s; animation-delay: 0.15s; height: 4px; opacity: 0.6; }
+        .wind-line:nth-child(5)  { width: 120px; top: 75%; animation-duration: 0.7s; animation-delay: 0.5s; }
+        .wind-line:nth-child(6)  { width: 220px; top: 85%; animation-duration: 0.45s; animation-delay: 0.2s; }
+        .wind-line:nth-child(7)  { width: 270px; top: 20%; animation-duration: 0.5s; animation-delay: 0.4s; }
+        .wind-line:nth-child(8)  { width: 160px; top: 65%; animation-duration: 0.55s; animation-delay: 0.25s; }
+
+        /* Strong Wind Animation Keyframes */
+        @keyframes blow-left {
+            0% {
+                transform: translateX(100vw);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Wind Overlay -->
+    <div class="wind-container">
+        <div class="wind-line"></div>
+        <div class="wind-line"></div>
+        <div class="wind-line"></div>
+        <div class="wind-line"></div>
+        <div class="wind-line"></div>
+        <div class="wind-line"></div>
+        <div class="wind-line"></div>
+        <div class="wind-line"></div>
+    </div>
+
+</body>
+</html>
