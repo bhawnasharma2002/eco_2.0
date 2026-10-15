@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import mapImage from '../assets/map1.png'
+import mapImage from '../assets/map2.png'
 
 
 export default class BaseScene extends Phaser.Scene {

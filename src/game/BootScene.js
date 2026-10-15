@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import mapImage from '../assets/map1.png'
+import mapImage from '../assets/map2.png'
 import playerImage from '../assets/player.png'
 import spriteAnimationImage from '../assets/sprite_animation.png'
 import bootColliderShapes from './bootColliderShapes'
